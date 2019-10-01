@@ -10,7 +10,7 @@ public class BmiCalculator {
      * @param heightInMeters Height of the person in meters
      * @return The body mass index (BMI)
      */
-    public static float calculateBmi(float weightInKgs, float heightInMeters) {
+    public float calculateBmi(float weightInKgs, float heightInMeters) {
         float bmi = weightInKgs / (heightInMeters * heightInMeters);
         return bmi;
     }
@@ -20,7 +20,7 @@ public class BmiCalculator {
      * @param bmi Body mass index to get clasification from
      * @return A BmiClasification enum with the clasification of BMI
      */
-    public static BmiClasification getBmiClasification(float bmi) {
+    public BmiClasification getBmiClasification(float bmi) {
         BmiClasification result = null;
         if (bmi < 18.5f) result = BmiClasification.LOW_WEIGHT;
         if (18.5f < bmi && bmi < 24.9f) result = BmiClasification.NORMAL_WEIGHT;

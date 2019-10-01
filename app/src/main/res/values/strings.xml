@@ -6,5 +6,7 @@
     <string name="txt_weight_hint">(kg)</string>
     <string name="lbl_weight">Weight</string>
     <string name="btn_calculate">Calculate</string>
+    <string name="main_invalid_height">Invalid height</string>
+    <string name="main_invalid_weight">Invalid weight</string>
     <!-- TODO -->
 </resources>

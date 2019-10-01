@@ -11,14 +11,18 @@ import androidx.core.app.ActivityCompat;
 
 import es.iessaladillo.pedrojoya.pr01.R;
 import es.iessaladillo.pedrojoya.pr01.bmi.BmiCalculator;
+import es.iessaladillo.pedrojoya.pr01.utils.TextChangedListener;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView lblHeight;
+    private TextView lblWeight;
     private EditText txtWeight;
     private EditText txtHeight;
     private TextView lblResult;
     private Button btnReset;
     private Button btnCalculate;
+    private BmiCalculator bmiCalculator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,17 +30,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         setViews();
         setButtons();
+        setTxtListeners();
+    }
+
+    private void setTxtListeners() {
+        TextChangedListener.is_changed(txtHeight,lblHeight,lblHeight.getText().toString(),this);
+        TextChangedListener.is_changed(txtWeight,lblWeight,lblWeight.getText().toString(),this);
     }
 
     private void setButtons() {
         btnCalculate.setOnClickListener(v -> calculateBmi(Float.parseFloat(txtWeight.getText().toString()),Float.parseFloat(txtHeight.getText().toString())));
-        btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetFields();
-                resetImg();
-                resetResult();
-            }
+        btnReset.setOnClickListener(v -> {
+            resetFields();
+            resetImg();
+            resetResult();
         });
     }
 
@@ -55,11 +62,12 @@ public class MainActivity extends AppCompatActivity {
     private void calculateBmi(float weight, float height) {
         //TODO Cambio de imagen y lblResult segun resultado.
         float result;
-        result = BmiCalculator.calculateBmi(weight,height);
+        result = bmiCalculator.calculateBmi(weight,height);
 
-        switch (BmiCalculator.getBmiClasification(result)){
+        switch (bmiCalculator.getBmiClasification(result)){
 
             case LOW_WEIGHT:
+
                 break;
             case NORMAL_WEIGHT:
                 break;
@@ -80,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
         lblResult = ActivityCompat.requireViewById(this, R.id.lblResult);
         txtHeight = ActivityCompat.requireViewById(this, R.id.txtHeight);
         txtWeight = ActivityCompat.requireViewById(this, R.id.txtWeight);
+        lblHeight = ActivityCompat.requireViewById(this, R.id.lblHeight);
+        lblWeight = ActivityCompat.requireViewById(this, R.id.lblWeight);
     }
 
 
