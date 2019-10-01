@@ -8,6 +8,58 @@
     android:orientation="vertical"
     tools:context=".ui.main.MainActivity">
 
-    <!-- TODO -->
+    <TextView
+        android:id="@+id/lblWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_weight" />
+
+    <EditText
+        android:id="@+id/txtWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/txt_weight_hint"
+        android:inputType="number"
+        tools:ignore="Autofill" />
+
+    <TextView
+        android:id="@+id/lblHeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_height" />
+
+    <EditText
+        android:id="@+id/txtHeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/txt_height_hint"
+        android:inputType="number"
+        tools:ignore="Autofill" />
+
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_reset" />
+
+    <Button
+        android:id="@+id/btnCalculate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_calculate" />
+
+    <TextView
+        android:id="@+id/lblResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/imgBmi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/bmi"
+        tools:ignore="ContentDescription" />
 
 </LinearLayout>
