@@ -1,9 +1,9 @@
 package es.iessaladillo.pedrojoya.pr01.ui.main;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,9 +20,10 @@ public class MainActivity extends AppCompatActivity {
     private EditText txtWeight;
     private EditText txtHeight;
     private TextView lblResult;
+    private ImageView imgBmi;
     private Button btnReset;
     private Button btnCalculate;
-    private BmiCalculator bmiCalculator;
+    private BmiCalculator bmiCalculator = new BmiCalculator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,52 +35,84 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setTxtListeners() {
-        TextChangedListener.is_changed(txtHeight,lblHeight,lblHeight.getText().toString(),this);
-        TextChangedListener.is_changed(txtWeight,lblWeight,lblWeight.getText().toString(),this);
+        TextChangedListener.is_changed(txtHeight, lblHeight, lblHeight.getText().toString(), this);
+        TextChangedListener.is_changed(txtWeight, lblWeight, lblWeight.getText().toString(), this);
     }
 
     private void setButtons() {
-        btnCalculate.setOnClickListener(v -> calculateBmi(Float.parseFloat(txtWeight.getText().toString()),Float.parseFloat(txtHeight.getText().toString())));
+        btnCalculate.setOnClickListener(v -> calculateBmi(txtWeight.getText().toString(),txtHeight.getText().toString()));
         btnReset.setOnClickListener(v -> {
-            resetFields();
-            resetImg();
-            resetResult();
+            reset();
         });
     }
 
+    private void reset() {
+        resetFields();
+        resetImg();
+        resetResult();
+    }
+
     private void resetResult() {
-        //TODO resetear campo de lblResult.
+        lblResult.setText("");
     }
 
     private void resetImg() {
-        //TODO resetear img a inicial.
+        imgBmi.setImageResource(R.drawable.bmi);
     }
 
     private void resetFields() {
-        //TODO resetear campos de height y weight.
+        txtWeight.setText("");
+        txtHeight.setText("");
     }
 
-    private void calculateBmi(float weight, float height) {
-        //TODO Cambio de imagen y lblResult segun resultado.
-        float result;
-        result = bmiCalculator.calculateBmi(weight,height);
+    private void calculateBmi(String weight, String height) {
 
-        switch (bmiCalculator.getBmiClasification(result)){
+        boolean check = checkEmptyFields();
+        if(!check){
+            float h = Float.parseFloat(txtHeight.getText().toString());
+            float w = Float.parseFloat(txtWeight.getText().toString());
+            float result;
+            result = bmiCalculator.calculateBmi(w, h);
+            BmiCalculator.BmiClasification clasification = bmiCalculator.getBmiClasification(result);
 
-            case LOW_WEIGHT:
+            switch (clasification) {
 
-                break;
-            case NORMAL_WEIGHT:
-                break;
-            case OVERWWEIGHT:
-                break;
-            case OBESITY_GRADE_1:
-                break;
-            case OBESITY_GRADE_2:
-                break;
-            case OBESITY_GRADE_3:
-                break;
+                case LOW_WEIGHT:
+                    lblResult.setText(getString(R.string.main_bmi,result,getString(R.string.main_low_weight)));
+                    imgBmi.setImageResource(R.drawable.underweight);
+                    break;
+                case NORMAL_WEIGHT:
+                    lblResult.setText(getString(R.string.main_bmi,result,getString(R.string.main_normal_weight)));
+                    imgBmi.setImageResource(R.drawable.normal_weight);
+                    break;
+                case OVERWWEIGHT:
+                    lblResult.setText(getString(R.string.main_bmi,result,getString(R.string.main_overweight)));
+                    imgBmi.setImageResource(R.drawable.overweight);
+                    break;
+                case OBESITY_GRADE_1:
+                    lblResult.setText(getString(R.string.main_bmi,result,getString(R.string.main_obesity_grade_one)));
+                    imgBmi.setImageResource(R.drawable.obesity1);
+                    break;
+                case OBESITY_GRADE_2:
+                    lblResult.setText(getString(R.string.main_bmi,result,getString(R.string.main_obesity_grade_two)));
+                    imgBmi.setImageResource(R.drawable.obesity2);
+                    break;
+                case OBESITY_GRADE_3:
+                    lblResult.setText(getString(R.string.main_bmi,result,getString(R.string.main_obesity_grade_three)));
+                    imgBmi.setImageResource(R.drawable.obesity3);
+                    break;
+            }
+        }else{
+            txtHeight.setText("0");
+            txtWeight.setText("0");
+            txtHeight.setText("");
+            txtWeight.setText("");
         }
+    }
+
+    private boolean checkEmptyFields() {
+        return txtHeight.getText().toString().equals("") || txtWeight.getText().toString().equals("") ||
+                txtHeight.getText().toString().equals("0") || txtWeight.getText().toString().equals("0");
     }
 
     private void setViews() {
@@ -90,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         txtWeight = ActivityCompat.requireViewById(this, R.id.txtWeight);
         lblHeight = ActivityCompat.requireViewById(this, R.id.lblHeight);
         lblWeight = ActivityCompat.requireViewById(this, R.id.lblWeight);
+        imgBmi = ActivityCompat.requireViewById(this, R.id.imgBmi);
     }
 
 

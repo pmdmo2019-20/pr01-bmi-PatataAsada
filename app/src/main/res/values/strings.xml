@@ -8,5 +8,12 @@
     <string name="btn_calculate">Calculate</string>
     <string name="main_invalid_height">Invalid height</string>
     <string name="main_invalid_weight">Invalid weight</string>
+    <string name="main_bmi">BMI: %f %s</string>
+    <string name="main_low_weight">Low weight</string>
+    <string name="main_obesity_grade_three">Obesity class 3</string>
+    <string name="main_obesity_grade_two">Obesity class 2</string>
+    <string name="main_obesity_grade_one">Obesity class 1</string>
+    <string name="main_overweight">Overweight</string>
+    <string name="main_normal_weight">Normal weight</string>
     <!-- TODO -->
 </resources>

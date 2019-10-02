@@ -17,29 +17,28 @@ public class TextChangedListener {
         texto.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkText(texto, label, count, type, mainActivity);
+                checkText(texto, label, s, type, mainActivity);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }
 
-    private static void checkText(EditText txt, TextView lbl, int count, String type, MainActivity mainActivity) {
-        if (count == 0) {
+    private static void checkText(EditText txt, TextView lbl, CharSequence word, String type, MainActivity mainActivity) {
+        boolean empty = (word.length() == 0 || word.toString().equals("0"));
+        if (empty) {
             switch (type){
                 case "Height":
-                    txt.setError(mainActivity.getString(R.string.lbl_height));
+                    txt.setError(mainActivity.getString(R.string.main_invalid_height));
                     break;
                 case "Weight":
-                    txt.setError(mainActivity.getString(R.string.lbl_weight));
+                    txt.setError(mainActivity.getString(R.string.main_invalid_weight));
                     break;
             }
             lbl.setEnabled(false);
